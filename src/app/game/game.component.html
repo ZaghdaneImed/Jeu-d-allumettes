@@ -1,0 +1,24 @@
+<div *ngIf="items.length != 0"> 
+  <div style="text-align: center">
+    <h2>Player 1: {{p1}} </h2>
+    <button type="button" class="btn btn-secondary" (click)="removeMatches(1)" [disabled]="!player1" style="margin: 5px;">1</button>
+    <button type="button" class="btn btn-secondary" (click)="removeMatches(2)" [disabled]="!player1 || !(items.length >= 2)" style="margin: 5px;">2</button>
+    <button type="button" class="btn btn-secondary" (click)="removeMatches(3)" [disabled]="!player1 || !(items.length >= 3)" style="margin: 5px;">3</button>
+  </div>
+  
+  <ul style="text-align: center; margin: 20px">
+      <div *ngFor="let item of items" style="display:inline-block">
+          <img width="40px" alt="A" src="../assets/allumon.gif">
+      </div>
+  </ul>
+  <div style="text-align: center">
+      <h2>Player 2: {{p2}}</h2>
+      <button type="button" *ngIf="!computer" class="btn btn-secondary" (click)="removeMatches(1)" [disabled]="!player2" style="margin: 5px;">1</button>
+      <button type="button" *ngIf="!computer" class="btn btn-secondary" (click)="removeMatches(2)" [disabled]="!player2 || !(items.length >= 2)" style="margin: 5px;">2</button>
+      <button type="button" *ngIf="!computer" class="btn btn-secondary" (click)="removeMatches(3)" [disabled]="!player2 || !(items.length >= 3)" style="margin: 5px;">3</button>
+      <h2 *ngIf="computer">{{computerNb}}</h2>
+    </div>
+  </div>
+  <div *ngIf="items.length == 0" style="text-align: center">
+      <h1>The winner is {{ winner }} !!</h1>  
+  </div>
