@@ -16,6 +16,12 @@ export class GameComponent implements OnInit {
   winner = "";
   computerNb = "";
   ngOnInit(){
+    if (this.computer === true && this.items.length !== 0) {
+      setTimeout(() => {
+        console.log('Test');
+        this.removeComputer();
+      }, 2000); 
+    }
 
   }
 
@@ -34,8 +40,8 @@ export class GameComponent implements OnInit {
     //condition to get the winner
     if (this.items.length === 0 && this.player2 === true) {
       this.winner = this.p1;
-      this.player1 = true;
-      this.player2 = false;
+      // this.player1 = true;
+      // this.player2 = false;
       this.computerNb = "";
     }else{
       if (this.items.length === 0 && this.player1 === true) {
@@ -76,8 +82,8 @@ export class GameComponent implements OnInit {
 
     //condition to get the winner
     if (this.items.length === 0 && this.player2 === true) {
-      this.player1 = true;
-      this.player2 = false;
+      // this.player1 = true;
+      // this.player2 = false;
       this.winner = this.p1;
       this.computerNb = "";
     }
