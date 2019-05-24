@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+
+import { Subject } from 'rxjs';
+
 
 const MyAwesomeRangeValidator: ValidatorFn = (fg: FormGroup) => {
   const p1 = fg.get('p1').value;
@@ -26,6 +29,8 @@ export class AppComponent {
   player1:boolean = true;
   player2:boolean = false;
   turn:string;
+  eventsSubject: EventEmitter<any> = new EventEmitter();
+
 constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -40,16 +45,23 @@ constructor(private fb: FormBuilder) {}
   }
 
   startGame(){
+
     this.p1 = this.form.get("p1").value;
     this.p2 = this.form.get("p2").value;
     this.nbAllumettes = this.form.get("nbAllumettes").value;
-    console.log(this.form.get("turn").value);
     this.start = true;
     this.help = false;
     this.items = [];
     this.items = this.createRange();
     this.player1 = this.form.get("turn").value == "1" ? true : false;
     this.player2 = !this.player1;
+
+    if(this.computer && this.player2){
+      setTimeout(() => {
+        console.log('Test');
+        this.eventsSubject.next()
+      }, 1000);
+    }
   }
 
   vsComputer(){
@@ -72,7 +84,7 @@ constructor(private fb: FormBuilder) {}
 
   createRange(){
     console.log(this.nbAllumettes);
-    
+
     for(var i = 1; i <= this.nbAllumettes; i++){
       this.items.push(i);
     }

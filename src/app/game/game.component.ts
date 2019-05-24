@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   @Input() nbAllumettes: number;
   @Input() items: number[] = [];
   @Input() p1: string;
@@ -13,22 +15,24 @@ export class GameComponent implements OnInit {
   @Input() computer: boolean;
   @Input() player1:boolean;
   @Input() player2:boolean;
+
+  @Input() events: Observable<void>;
+
+
   winner = "";
   computerNb = "";
-  ngOnInit(){
-    if (this.computer === true && this.items.length !== 0) {
-      setTimeout(() => {
-        console.log('Test');
-        this.removeComputer();
-      }, 2000); 
-    }
+
+  ngAfterViewInit()	{
+    this.events.subscribe(() => {
+      this.removeComputer();
+    })
 
   }
 
   /**
    * removeMatches
-   * Funtion that delete matches using the given number 
-   * @param {number} numb 
+   * Funtion that delete matches using the given number
+   * @param {number} numb
    */
   removeMatches(numb) {
     for(var i = 1; i <= numb; i++){
@@ -54,13 +58,13 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         console.log('Test');
         this.removeComputer();
-      }, 2000); 
+      }, 2000);
     }
   }
 
   /**
    * removeComputer
-   * Funtion that delete matches when the computer is playing 
+   * Funtion that delete matches when the computer is playing
    */
   removeComputer() {
     let x:number;
