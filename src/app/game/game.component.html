@@ -1,3 +1,4 @@
+<h1> {{ player1}} !!</h1>  
 <div *ngIf="items.length != 0"> 
   <div style="text-align: center">
     <h2>Player 1: {{p1}} </h2>
@@ -11,6 +12,7 @@
           <img width="40px" alt="A" src="../assets/allumon.gif">
       </div>
   </ul>
+
   <div style="text-align: center">
       <h2>Player 2: {{p2}}</h2>
       <button type="button" *ngIf="!computer" class="btn btn-secondary" (click)="removeMatches(1)" [disabled]="!player2" style="margin: 5px;">1</button>

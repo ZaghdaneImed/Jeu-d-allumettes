@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
 
@@ -13,20 +13,23 @@ export class GameComponent {
   @Input() p1: string;
   @Input() p2: string;
   @Input() computer: boolean;
-  @Input() player1:boolean;
-  @Input() player2:boolean;
+  /* @Input()*/ player1:boolean = Math.random() >= 0.5 ? true : false;
+  /*@Input()*/ player2:boolean = ! this.player1;
 
   @Input() events: Observable<void>;
-
-
   winner = "";
   computerNb = "";
 
   ngAfterViewInit()	{
+    //console.log("heyy");
+    
     this.events.subscribe(() => {
-      this.removeComputer();
+      console.log("hooo");
+      if (this.computer && this.player2) {
+        console.log("heyy");
+        this.removeComputer();
+      }
     })
-
   }
 
   /**
@@ -44,12 +47,12 @@ export class GameComponent {
     //condition to get the winner
     if (this.items.length === 0 && this.player2 === true) {
       this.winner = this.p1;
-      // this.player1 = true;
-      // this.player2 = false;
+      this.stopGame();
       this.computerNb = "";
     }else{
       if (this.items.length === 0 && this.player1 === true) {
         this.winner = this.p2;
+        this.stopGame();
         this.computerNb = "";
       }
     }
@@ -67,6 +70,8 @@ export class GameComponent {
    * Funtion that delete matches when the computer is playing
    */
   removeComputer() {
+    console.log("sdfgfc");
+    
     let x:number;
     if (this.items.length > 3) {
       x = Math.floor(Math.random() * 3) + 1;
@@ -78,7 +83,6 @@ export class GameComponent {
     }
 
     //show the choice of the computer
-    //alert("The computer choose : "+ x);
     this.computerNb = "The computer choose : "+ x;
     //change the player
     this.player1 = !this.player1;
@@ -86,15 +90,23 @@ export class GameComponent {
 
     //condition to get the winner
     if (this.items.length === 0 && this.player2 === true) {
-      // this.player1 = true;
-      // this.player2 = false;
+      this.stopGame();
       this.winner = this.p1;
       this.computerNb = "";
     }
     if (this.items.length === 0 && this.player1 === true) {
       this.winner = this.p2;
+      this.stopGame();
       this.computerNb = "";
     }
+  }
+
+  stopGame(){
+    
+    this.player1 = Math.random() >= 0.5 ? true : false;
+    this.player2 = ! this.player1;
+    console.log("aaaaaaaa");
+    
   }
 
 }

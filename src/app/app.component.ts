@@ -26,21 +26,24 @@ export class AppComponent {
   p2 : String;
   start:boolean = false;
   form: FormGroup;
-  player1:boolean = true;
-  player2:boolean = false;
+  // player1:boolean;
+  // player2:boolean;
   turn:string;
   eventsSubject: EventEmitter<any> = new EventEmitter();
 
 constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    
+    // this.player1 = true;
+    // this.player2 = false;
     this.form = this.fb.group({
       p1: ['', [Validators.required]],
       p2: ['', [Validators.required]],
       nbAllumettes: ['', [Validators.required]],
       turn: ['', [Validators.required]]
     },{validator: MyAwesomeRangeValidator})  // key is to validate on the form group)
-    this.form.controls['nbAllumettes'].setValue(4);
+    this.form.controls['nbAllumettes'].setValue(6);
     this.form.controls['turn'].setValue("1");
   }
 
@@ -53,10 +56,10 @@ constructor(private fb: FormBuilder) {}
     this.help = false;
     this.items = [];
     this.items = this.createRange();
-    this.player1 = this.form.get("turn").value == "1" ? true : false;
-    this.player2 = !this.player1;
-
-    if(this.computer && this.player2){
+    // this.player1 = this.form.get("turn").value == "1" ? true : false;
+    // this.player2 = !this.player1;
+    // this.eventsSubject.next();
+    if(this.computer /*&& this.player2*/){
       setTimeout(() => {
         console.log('Test');
         this.eventsSubject.next()
