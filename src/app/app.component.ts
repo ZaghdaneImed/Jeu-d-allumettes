@@ -1,7 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-
-import { Subject } from 'rxjs';
+import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 
 
 const MyAwesomeRangeValidator: ValidatorFn = (fg: FormGroup) => {
@@ -26,25 +24,17 @@ export class AppComponent {
   p2 : String;
   start:boolean = false;
   form: FormGroup;
-  // player1:boolean;
-  // player2:boolean;
-  turn:string;
   eventsSubject: EventEmitter<any> = new EventEmitter();
 
 constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    
-    // this.player1 = true;
-    // this.player2 = false;
     this.form = this.fb.group({
       p1: ['', [Validators.required]],
       p2: ['', [Validators.required]],
-      nbAllumettes: ['', [Validators.required]],
-      turn: ['', [Validators.required]]
+      nbAllumettes: ['', [Validators.required]]
     },{validator: MyAwesomeRangeValidator})  // key is to validate on the form group)
     this.form.controls['nbAllumettes'].setValue(6);
-    this.form.controls['turn'].setValue("1");
   }
 
   startGame(){
@@ -56,10 +46,7 @@ constructor(private fb: FormBuilder) {}
     this.help = false;
     this.items = [];
     this.items = this.createRange();
-    // this.player1 = this.form.get("turn").value == "1" ? true : false;
-    // this.player2 = !this.player1;
-    // this.eventsSubject.next();
-    if(this.computer /*&& this.player2*/){
+    if(this.computer){
       setTimeout(() => {
         console.log('Test');
         this.eventsSubject.next()
@@ -71,6 +58,7 @@ constructor(private fb: FormBuilder) {}
     this.form.controls['p2'].setValue("Computer");
     this.computer = true;
     this.help = false;
+    this.start = false;
   }
 
   helper(){
@@ -81,13 +69,12 @@ constructor(private fb: FormBuilder) {}
 
   multiP(){
     this.form.controls['p2'].setValue("");
+    this.start = false;
     this.computer = false;
     this.help = false;
   }
 
   createRange(){
-    console.log(this.nbAllumettes);
-
     for(var i = 1; i <= this.nbAllumettes; i++){
       this.items.push(i);
     }

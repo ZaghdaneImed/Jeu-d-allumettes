@@ -8,25 +8,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent {
-  @Input() nbAllumettes: number;
+  //@Input() nbAllumettes: number;
   @Input() items: number[] = [];
   @Input() p1: string;
   @Input() p2: string;
   @Input() computer: boolean;
-  /* @Input()*/ player1:boolean = Math.random() >= 0.5 ? true : false;
-  /*@Input()*/ player2:boolean = ! this.player1;
+  player1:boolean = Math.random() >= 0.5 ? true : false;
+  player2:boolean = ! this.player1;
 
   @Input() events: Observable<void>;
   winner = "";
   computerNb = "";
 
   ngAfterViewInit()	{
-    //console.log("heyy");
     
     this.events.subscribe(() => {
-      console.log("hooo");
       if (this.computer && this.player2) {
-        console.log("heyy");
         this.removeComputer();
       }
     })
@@ -70,8 +67,6 @@ export class GameComponent {
    * Funtion that delete matches when the computer is playing
    */
   removeComputer() {
-    console.log("sdfgfc");
-    
     let x:number;
     if (this.items.length > 3) {
       x = Math.floor(Math.random() * 3) + 1;
@@ -102,11 +97,8 @@ export class GameComponent {
   }
 
   stopGame(){
-    
     this.player1 = Math.random() >= 0.5 ? true : false;
     this.player2 = ! this.player1;
-    console.log("aaaaaaaa");
-    
   }
 
 }

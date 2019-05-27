@@ -22,25 +22,6 @@
         <input type="text" class="form-control" id="p2" formControlName="p2" placeholder="Player2" required>
       </div>
     </div>
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">First Player :</legend>
-        <div class="col-sm-10">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="turn" id="gridRadios1" formControlName="turn" value="1" checked>
-            <label class="form-check-label" for="gridRadios1">
-              Player 1
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="turn" id="gridRadios2" formControlName="turn" value="0">
-            <label class="form-check-label" for="gridRadios2">
-              Player 2
-            </label>
-          </div>
-        </div>
-      </div>
-    </fieldset>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Number of matches :</label>
         <div class="col-sm-2">
@@ -49,9 +30,7 @@
       </div>
 
     <button type="button" class="btn btn-info" [disabled]="form.invalid" (click)="startGame()">Start Game !</button>
-    <!-- <button type="button" class="btn btn-info" *ngIf="start" [disabled]="form.invalid" mat-button
-      (click)="startGame()">Restart The Game !</button> -->
-    <app-game *ngIf="start" [nbAllumettes]="nbAllumettes" [items]="items" [p1]="p1" [p2]="p2" [computer]="computer" [events]="eventsSubject">
+    <app-game *ngIf="start" [items]="items" [p1]="p1" [p2]="p2" [computer]="computer" [events]="eventsSubject">
     </app-game>
     <app-help *ngIf="help"></app-help>
   </form>
